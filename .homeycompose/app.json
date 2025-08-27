@@ -27,11 +27,11 @@
   "permissions": [
     "homey:wireless:zigbee"
   ],
-  "homeyCommunityTopicId": 26439,
-  "source": "https://github.com/JohanBendz/com.tuya.zigbee",
-  "support": "mailto:johan_bendz@hotmail.com",
+  "homeyCommunityTopicId": 0,
+  "source": "https://github.com/WJGvdVelden/MeianSiren",
+  "support": "mailto:nedlevw@gmail.com",
   "bugs": {
-    "url": "https://github.com/JohanBendz/com.tuya.zigbee/issues"
+    "url": "https://github.com/WJGvdVelden/MeianSiren/issues"
   },
   "images": {
     "large": "/assets/images/large.png",
