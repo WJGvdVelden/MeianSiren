@@ -1,0 +1,52 @@
+{
+  "id": "com.Meian.zigbee",
+  "version": "0.1.1",
+  "compatibility": ">=12.0.0",
+  "platforms": [
+    "local"
+  ],
+  "sdk": 3,
+  "name": {
+    "en": "Meian"
+  },
+  "description": {
+    "en": "Meian Zigbee app"
+  },
+  "tags": {
+    "en": [
+      "Tuya",
+      "Meian"
+    ]
+  },
+  "category": [
+    "lights",
+    "security",
+    "appliances"
+  ],
+  "brandColor": "#FF4800",
+  "permissions": [
+    "homey:wireless:zigbee"
+  ],
+  "homeyCommunityTopicId": 26439,
+  "source": "https://github.com/JohanBendz/com.tuya.zigbee",
+  "support": "mailto:johan_bendz@hotmail.com",
+  "bugs": {
+    "url": "https://github.com/JohanBendz/com.tuya.zigbee/issues"
+  },
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Wim van der Velden",
+    "email": "nedlevw@gmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Johan Bendz",
+        "email": "johan_bendz@hotmail.com"
+      }
+    ]
+  }
+}

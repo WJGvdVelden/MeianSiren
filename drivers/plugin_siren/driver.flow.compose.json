@@ -1,0 +1,81 @@
+{
+  
+    "actions": [
+      {
+        "id": "start_alarm",
+        "title": {
+          "en": "Start alarm"
+        },
+        "titleFormatted": {
+          "en": "Start alarm with [[mode]] at [[volume]]% volume for [[duration]] seconds"
+        },
+        "args": [
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              { "id": "sound", "title": { "en": "Siren only" } },
+              { "id": "strobe", "title": { "en": "Strobe only" } },
+              { "id": "both", "title": { "en": "Siren + Strobe" } }
+            ]
+          },
+          {
+            "name": "duration",
+            "type": "number",
+            "title": { "en": "Duration (s)" },
+            "min": 0,
+            "max": 3600,
+            "step": 1
+          },
+          {
+            "name": "volume",
+            "type": "range",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "title": { "en": "Volume %" }
+          }
+        ]
+      },
+      {
+        "id": "stop_alarm",
+        "title": {
+          "en": "Stop alarm"
+        },
+        "titleFormatted": {
+          "en": "Stop alarm"
+        },
+        "args": []
+      },
+      {
+        "id": "set_volume",
+        "title": {
+          "en": "Set alarm volume"
+        },
+        "titleFormatted": {
+          "en": "Set alarm volume to [[volume]]%"
+        },
+        "args": [
+          {
+            "name": "volume",
+            "type": "range",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "title": { "en": "Volume %" }
+          }
+        ]
+      },
+      {
+        "id": "trigger_doorbell",
+        "title": {
+          "en": "Trigger doorbell"
+        },
+        "titleFormatted": {
+          "en": "Trigger doorbell"
+        },
+        "args": []
+      }
+    ]
+  
+}

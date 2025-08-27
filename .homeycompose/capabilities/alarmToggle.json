@@ -1,0 +1,10 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Alarm",
+        "nl": "Alarm"
+    },
+    "uiComponent": "toggle",
+    "getable": true,
+    "setable": true
+}

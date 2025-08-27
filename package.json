@@ -1,0 +1,19 @@
+{
+  "name": "com.test.zigbee",
+  "version": "0.1.1",
+  "description": "Adds support for Tuya Zigbee devices to Homey",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Tuya",
+    "Zigbee"
+  ],
+  "author": "Johan Bendz",
+  "license": "MIT",
+  "dependencies": {
+    "homey-zigbeedriver": "^2.1.5",
+    "zigbee-clusters": "^2.4.1"
+  }
+}
