@@ -11,83 +11,18 @@
     ]
   },
   {
-    "id": "mode",
-    "type": "number",
-    "label": {
-      "en": "Alarm Mode?"
-    },
-    "hint": {
-      "en": "Set the default alarm mode"
-    },
-    "value": 0
-  },
-  {
     "id": "alarmDuration",
     "type": "number",
     "label": {
       "en": "Duration"
     },
     "hint": {
-      "en": "Set a default duration in seconds, \ndefault: 60"
+      "en": "Set a default duration in seconds, max 3600 \ndefault: 60"
     },
     "value": 60,
     "attr": {
       "min": 0,
       "max": 3600,
-      "step": 1
-    }
-  },
-  {
-    "id": "strobeCycle",
-    "type": "number",
-    "label": {
-      "en": "Strobe frequency"
-    },
-    "hint": {
-      "en": "Strobe light, where 0 is OFF, 100 is ON and any other value a % of the time On/Off"
-    },
-    "value": 50
-  },
-  {
-    "id": "quickAlarm",
-    "type": "number",
-    "label": {
-      "en": "Quick Alarm 5 secs"
-    },
-    "hint": {
-      "en": "5 seconds alarm with strobe"
-    },
-    "value": 0
-  },
-  {
-    "id": "doorBell",
-    "type": "number",
-    "label": {
-      "en": "Doorbell"
-    },
-    "hint": {
-      "en": "Rings the bell"
-    },
-    "value": 0,
-    "attr": {
-      "min": 0,
-      "max": 1,
-      "step": 1
-    }
-  },
-  {
-    "id": "bellVolume",
-    "type": "number",
-    "label": {
-      "en": "Volume of doorbell"
-    },
-    "hint": {
-      "en": "Set the volume of the doorbell from 0 to 100"
-    },
-    "value": 50,
-    "attr": {
-      "min": 0,
-      "max": 100,
       "step": 1
     }
   },
@@ -99,6 +34,22 @@
     },
     "hint": {
       "en": "Set the loudness of the alarm in %"
+    },
+    "value": 50,
+    "attr": {
+      "min": 0,
+      "max": 100,
+      "step": 1
+    }
+  },
+  {
+    "id": "bellVolume",
+    "type": "number",
+    "label": {
+      "en": "Volume of doorbell"
+    },
+    "hint": {
+      "en": "Set the volume of the doorbell from 0 to 100"
     },
     "value": 50,
     "attr": {

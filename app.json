@@ -28,11 +28,11 @@
   "permissions": [
     "homey:wireless:zigbee"
   ],
-  "homeyCommunityTopicId": 26439,
-  "source": "https://github.com/JohanBendz/com.tuya.zigbee",
-  "support": "mailto:johan_bendz@hotmail.com",
+  "homeyCommunityTopicId": 0,
+  "source": "https://github.com/WJGvdVelden/MeianSiren",
+  "support": "mailto:nedlevw@gmail.com",
   "bugs": {
-    "url": "https://github.com/JohanBendz/com.tuya.zigbee/issues"
+    "url": "https://github.com/WJGvdVelden/MeianSiren/issues"
   },
   "images": {
     "large": "/assets/images/large.png",
@@ -53,81 +53,120 @@
   "flow": {
     "actions": [
       {
-        "id": "start_warning",
+        "id": "start_alarm",
         "title": {
-          "en": "Start siren with settings"
+          "en": "Start alarm"
         },
-        "titleFormatted": "Start siren: mode [[mode]], volume [[volume]], melody [[melody]], duration [[duration]]s",
+        "titleFormatted": {
+          "en": "Start alarm with [[mode]] at [[volume]]% volume for [[duration]] seconds"
+        },
         "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=plugin_siren"
+          },
           {
             "name": "mode",
             "type": "dropdown",
             "values": [
               {
-                "id": "sound_only",
+                "id": "sound",
                 "title": {
-                  "en": "Sound Only"
+                  "en": "Siren only"
                 }
               },
               {
-                "id": "sound_light",
+                "id": "strobe",
                 "title": {
-                  "en": "Sound & Light"
+                  "en": "Strobe only"
                 }
               },
               {
-                "id": "light_only",
+                "id": "both",
                 "title": {
-                  "en": "Light Only"
+                  "en": "Siren + Strobe"
                 }
               }
             ]
-          },
-          {
-            "name": "volume",
-            "type": "dropdown",
-            "values": [
-              {
-                "id": "mute",
-                "title": {
-                  "en": "Mute"
-                }
-              },
-              {
-                "id": "low",
-                "title": {
-                  "en": "Low"
-                }
-              },
-              {
-                "id": "medium",
-                "title": {
-                  "en": "Medium"
-                }
-              },
-              {
-                "id": "high",
-                "title": {
-                  "en": "High"
-                }
-              }
-            ]
-          },
-          {
-            "name": "melody",
-            "type": "number",
-            "min": 1,
-            "max": 10,
-            "title": {
-              "en": "Melody (1–10)"
-            }
           },
           {
             "name": "duration",
             "type": "number",
             "title": {
-              "en": "Duration (seconds)"
+              "en": "Duration (s)"
+            },
+            "min": 0,
+            "max": 3600,
+            "step": 1
+          },
+          {
+            "name": "volume",
+            "type": "range",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "title": {
+              "en": "Volume %"
             }
+          }
+        ]
+      },
+      {
+        "id": "stop_alarm",
+        "title": {
+          "en": "Stop alarm"
+        },
+        "titleFormatted": {
+          "en": "Stop alarm"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=plugin_siren"
+          }
+        ]
+      },
+      {
+        "id": "set_volume",
+        "title": {
+          "en": "Set alarm volume"
+        },
+        "titleFormatted": {
+          "en": "Set alarm volume to [[volume]]%"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=plugin_siren"
+          },
+          {
+            "name": "volume",
+            "type": "range",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "title": {
+              "en": "Volume %"
+            }
+          }
+        ]
+      },
+      {
+        "id": "trigger_doorbell",
+        "title": {
+          "en": "Trigger doorbell"
+        },
+        "titleFormatted": {
+          "en": "Trigger doorbell"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=plugin_siren"
           }
         ]
       }
@@ -164,7 +203,7 @@
       },
       "capabilities": [
         "onoff",
-        "alarm_mode"
+        "alarmToggle"
       ],
       "platforms": [
         "local"
@@ -214,24 +253,13 @@
           ]
         },
         {
-          "id": "mode",
-          "type": "number",
-          "label": {
-            "en": "Alarm Mode?"
-          },
-          "hint": {
-            "en": "Set the default alarm mode"
-          },
-          "value": 0
-        },
-        {
           "id": "alarmDuration",
           "type": "number",
           "label": {
             "en": "Duration"
           },
           "hint": {
-            "en": "Set a default duration in seconds, \ndefault: 60"
+            "en": "Set a default duration in seconds, max 3600 \ndefault: 60"
           },
           "value": 60,
           "attr": {
@@ -241,62 +269,9 @@
           }
         },
         {
-          "id": "strobeCycle",
-          "type": "number",
-          "label": {
-            "en": "Strobe frequency"
-          },
-          "hint": {
-            "en": "Strobe light, where 0 is OFF, 100 is ON and any other value a % of the time On/Off"
-          },
-          "value": 50
-        },
-        {
-          "id": "quickAlarm",
-          "type": "number",
-          "label": {
-            "en": "Quick Alarm 5 secs"
-          },
-          "hint": {
-            "en": "5 seconds alarm with strobe"
-          },
-          "value": 0
-        },
-        {
-          "id": "doorBell",
-          "type": "number",
-          "label": {
-            "en": "Doorbell"
-          },
-          "hint": {
-            "en": "Rings the bell"
-          },
-          "value": 0,
-          "attr": {
-            "min": 0,
-            "max": 1,
-            "step": 1
-          }
-        },
-        {
-          "id": "bellVolume",
-          "type": "number",
-          "label": {
-            "en": "Volume of doorbell"
-          },
-          "hint": {
-            "en": "Set the volume of the doorbell from 0 to 100"
-          },
-          "value": 50,
-          "attr": {
-            "min": 0,
-            "max": 100,
-            "step": 1
-          }
-        },
-        {
           "id": "alarmVolume",
           "type": "number",
+          "uiComponent": "slider",
           "label": {
             "en": "Alarm Loudness"
           },
@@ -309,12 +284,29 @@
             "max": 100,
             "step": 1
           }
+        },
+        {
+          "id": "bellVolume",
+          "type": "number",
+          "uiComponent": "slider",
+          "label": {
+            "en": "Volume of doorbell"
+          },
+          "hint": {
+            "en": "Set the volume of the doorbell from 0 to 100"
+          },
+          "value": 50,
+          "attr": {
+            "min": 0,
+            "max": 100,
+            "step": 1
+          }
         }
       ]
     }
   ],
   "capabilities": {
-    "alarm_mode": {
+    "alarmToggle": {
       "type": "boolean",
       "title": {
         "en": "Alarm",

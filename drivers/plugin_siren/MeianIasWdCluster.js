@@ -15,7 +15,7 @@ class MeianIasWdCluster extends Cluster {
       // Alarm duration in seconds
       alarmDuration: { id: 0x0000, type: ZCLDataTypes.uint16 },
 
-      // Likely strobe intensity/duty cycle (0–100)
+      // Likely strobe intensity/duty cycle (0–100), has no effect
       strobeDutyCycle: { id: 0x0001, type: ZCLDataTypes.uint8 },
 
       // Alarm volume (0–100, Tuya-style)

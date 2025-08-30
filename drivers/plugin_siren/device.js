@@ -16,7 +16,7 @@ class plugin_siren extends ZigBeeDevice {
 
     // Custom capabilities
     this.registerCapabilityListener('alarmToggle', async value => {
-      this.log(`Alarm mode: ${value ? 'ON' : 'OFF'}`);
+      this.log(`Alarm button: ${value ? 'ON' : 'OFF'}`);
       if (value) {
         await this._startAlarm();
       } else {
@@ -45,7 +45,7 @@ class plugin_siren extends ZigBeeDevice {
           alarmDuration: duration,
           alarmVolume: volume,
         });
-
+        // Step 2: Trigger the alarm
         await this.zclNode.endpoints[1].clusters.iasWD.startWarning({
           warningInfo,
           warningDuration: duration,
@@ -88,13 +88,15 @@ class plugin_siren extends ZigBeeDevice {
         return true;
       });
 
-    // Trigger Doorbell, use the standard volume setting
+    // Trigger Doorbell, use the standard volume setting for doorbell
     this.homey.flow
       .getActionCard('trigger_doorbell')
       .registerRunListener(async () => {
-        await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({
-          doorbell: 1,
-        });
+        await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ doorbellTrigger: 1 });
+        // Second chime after 1 second to reset trigger attribute
+        setTimeout(async () => {
+        await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ doorbellTrigger: 0 });
+          }, 1000);
         return true;
       });
   }
@@ -103,8 +105,8 @@ class plugin_siren extends ZigBeeDevice {
     const cluster = this.zclNode.endpoints[1].clusters.iasWD;
 
     // Read settings
-    const duration = this.getSetting('alarmDuration') || 10;
-    const volume = this.getSetting('alarmVolume') || 50;
+    const duration = this.getSetting('alarmDuration') || 60;
+    const volume = this.getSetting('alarmVolume') || 100;
     const alarmSetting = this.getSetting('defaultAlarm') || "both"; 
     const warningInfo = this._mapAlarmMode(alarmSetting);
     
@@ -159,11 +161,6 @@ class plugin_siren extends ZigBeeDevice {
   async onSettings({oldSettings, newSettings, changedKeys}) {
     let parsedValue = 0;
 
-    if (changedKeys.includes('mode')) {
-      parsedValue = parseInt(newSettings.mode);
-      await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ specific: parsedValue });
-    }
-
     if (changedKeys.includes('alarmDuration')) {
       parsedValue = parseInt(newSettings.alarmDuration);
       await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ alarmDuration: parsedValue });
@@ -174,25 +171,31 @@ class plugin_siren extends ZigBeeDevice {
       await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ alarmVolume: parsedValue });
     }
 
-    if (changedKeys.includes('quickAlarm')) {
-      parsedValue = parseInt(newSettings.quickAlarm);
-      await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ quickTrigger: parsedValue });
-    }
-
-    if (changedKeys.includes('doorBell')) {
-      parsedValue = parseInt(newSettings.doorBell);
-      await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ doorbellTrigger: parsedValue });
-    }
-    
     if (changedKeys.includes('bellVolume')) {
       parsedValue = parseInt(newSettings.bellVolume);
       await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ doorbellVolume: parsedValue });
     }
 
+    /* Triggering doorbell and quickAlarm via settings is not usefull
+    if (changedKeys.includes('doorBell')) {
+      parsedValue = parseInt(newSettings.doorBell);
+      await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ doorbellTrigger: parsedValue });
+    }
+    if (changedKeys.includes('quickAlarm')) {
+      parsedValue = parseInt(newSettings.quickAlarm);
+      await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ quickTrigger: parsedValue });
+    }
+    // The use of the device specific attribute is not known
+    if (changedKeys.includes('specific')) {
+      parsedValue = parseInt(newSettings.specific);
+      await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ specific: parsedValue });
+    }
+    // Changing the cycle time of the strobe does not seem to work
     if (changedKeys.includes('strobeCycle')) {
       parsedValue = parseInt(newSettings.strobeCycle);
       await this.zclNode.endpoints[1].clusters.iasWD.writeAttributes({ strobeDutyCycle: parsedValue });
     }
+    */
 
   };
 
