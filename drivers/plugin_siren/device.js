@@ -67,15 +67,7 @@ class plugin_siren extends ZigBeeDevice {
     this.homey.flow
       .getActionCard('stop_alarm')
       .registerRunListener(async () => {
-        await this.zclNode.endpoints[1].clusters.iasWD.startWarning({
-          warningInfo: 0,
-          warningDuration: 0,
-        });
-        // update the UI
-        await this.setCapabilityValue('alarmToggle', false).catch(this.error);
-        // clear the Auto-reset UI
-        clearTimeout(this._alarmTimer);
-        return true;
+        await this._stopAlarm();
       });
 
     // Set Volume

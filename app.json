@@ -271,7 +271,6 @@
         {
           "id": "alarmVolume",
           "type": "number",
-          "uiComponent": "slider",
           "label": {
             "en": "Alarm Loudness"
           },
@@ -288,7 +287,6 @@
         {
           "id": "bellVolume",
           "type": "number",
-          "uiComponent": "slider",
           "label": {
             "en": "Volume of doorbell"
           },
