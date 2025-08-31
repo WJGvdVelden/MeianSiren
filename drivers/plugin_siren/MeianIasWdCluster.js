@@ -24,7 +24,7 @@ class MeianIasWdCluster extends Cluster {
       // Quick trigger (5 sec siren, resets to 0)
       quickTrigger: { id: 0x0004, type: ZCLDataTypes.uint8 },
 
-      // Doorbell trigger
+      // Doorbell trigger if value changed. Only 0 or 1 are valid values
       doorbellTrigger: { id: 0x0005, type: ZCLDataTypes.enum8({Off:0,On:1}) },
 
       // Doorbell volume (0–100)
@@ -40,7 +40,7 @@ class MeianIasWdCluster extends Cluster {
       startWarning: {
         id: 0x00,
         args: { 
-          warningInfo: ZCLDataTypes.uint8, // bitfield 0x11 = siren, 0x21 = strobe, 0x31 both
+          warningInfo: ZCLDataTypes.uint8, // bitfield 0x11 = siren, 0x21 = strobe, 0x31 both, 0x00 off
           warningDuration: ZCLDataTypes.uint16 // ignored by Tuya device
         }, 
       },

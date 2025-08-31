@@ -24,7 +24,7 @@
     "security",
     "appliances"
   ],
-  "brandColor": "#FF4800",
+  "brandColor": "#33FF33",
   "permissions": [
     "homey:wireless:zigbee"
   ],
@@ -312,7 +312,8 @@
       },
       "uiComponent": "toggle",
       "getable": true,
-      "setable": true
+      "setable": true,
+      "icon": "/assets/alarm.svg"
     }
   }
 }

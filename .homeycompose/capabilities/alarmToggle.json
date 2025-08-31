@@ -6,5 +6,6 @@
     },
     "uiComponent": "toggle",
     "getable": true,
-    "setable": true
+    "setable": true,
+    "icon": "/assets/alarm.svg"
 }
