@@ -1,10 +1,10 @@
 {
     "type": "boolean",
     "title": {
-        "en": "Alarm",
-        "nl": "Alarm"
+        "en": "Alarm"
     },
     "uiComponent": "toggle",
+    "uiQuickAction": true,
     "getable": true,
     "setable": true,
     "icon": "/assets/alarm.svg"

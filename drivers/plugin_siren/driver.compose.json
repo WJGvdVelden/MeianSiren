@@ -15,8 +15,8 @@
     }
   },
   "capabilities": [
-    "onoff",
-    "alarmToggle"
+    "alarmToggle",
+    "onoff"
   ],
   "platforms": [
     "local"

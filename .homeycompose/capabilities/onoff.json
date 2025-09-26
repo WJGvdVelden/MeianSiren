@@ -1,0 +1,10 @@
+{
+    "type": "boolean",
+    "title": {
+        "en": "Light"
+    },
+    "uiComponent": "toggle",
+    "uiQuickAction": false,
+    "getable": true,
+    "setable": true
+}

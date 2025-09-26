@@ -46,7 +46,7 @@ class plugin_siren extends ZigBeeDevice {
           alarmVolume: volume,
         });
         // Step 2: Trigger the alarm
-        await this.zclNode.endpoints[1].clusters.iasWD.startWarning({
+        await cluster.startWarning({
           warningInfo,
           warningDuration: duration,
         });
@@ -93,6 +93,7 @@ class plugin_siren extends ZigBeeDevice {
       });
   }
 
+  // start alarm with the device settings
   async _startAlarm() {
     const cluster = this.zclNode.endpoints[1].clusters.iasWD;
 

@@ -1,6 +1,6 @@
 {
   "id": "com.Meian.zigbee",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "compatibility": ">=12.0.0",
   "platforms": [
     "local"
@@ -15,7 +15,8 @@
   "tags": {
     "en": [
       "Tuya",
-      "Meian"
+      "Meian",
+      "Siren"
     ]
   },
   "category": [
