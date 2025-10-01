@@ -23,7 +23,8 @@
     "attr": {
       "min": 0,
       "max": 3600,
-      "step": 1
+      "step": 1,
+      "units": { "en": "seconds" }
     }
   },
   {

@@ -8,7 +8,7 @@ Cluster.addCluster(MeianIasWdCluster);
 class plugin_siren extends ZigBeeDevice {
 
   async onNodeInit({ zclNode }) {
-    this.log('Plugin Sirene installed');
+
     this.printNode();
 
     // Standaard capabilities
@@ -28,8 +28,8 @@ class plugin_siren extends ZigBeeDevice {
     if (this.isFirstInit() === true) {
       await this.setCapabilityValue('alarmToggle', false)
       .catch(err => { this.error(err); "alarmToggle not set properly" });
-    }
-
+    };
+  
     // Flow Action Cards
     // Start Alarm
     this.homey.flow
@@ -91,7 +91,8 @@ class plugin_siren extends ZigBeeDevice {
           }, 1000);
         return true;
       });
-  }
+
+  }     // end init
 
   // start alarm with the device settings
   async _startAlarm() {
@@ -103,8 +104,6 @@ class plugin_siren extends ZigBeeDevice {
     const alarmSetting = this.getSetting('defaultAlarm') || "both"; 
     const warningInfo = this._mapAlarmMode(alarmSetting);
     
-    this.log('Starting alarm with:', { duration, volume, warningInfo });
-
     // Step 1: write attributes
     await cluster.writeAttributes({
       alarmDuration: duration,
@@ -140,8 +139,6 @@ class plugin_siren extends ZigBeeDevice {
 
   async _stopAlarm() {
     const cluster = this.zclNode.endpoints[1].clusters.iasWD;
-
-    this.log('Stopping alarm');
 
     // trigger with duration=0 (failsafe)
     await cluster.startWarning({ warningInfo: 0x00, warningDuration: 0 });

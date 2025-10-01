@@ -1,6 +1,6 @@
 {
   "id": "com.Meian.zigbee",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "compatibility": ">=12.0.0",
   "platforms": [
     "local"
@@ -10,7 +10,7 @@
     "en": "Meian"
   },
   "description": {
-    "en": "Meian Zigbee app"
+    "en": "A plug-in siren with strobe, light and doorbell capabilities"
   },
   "tags": {
     "en": [
@@ -45,8 +45,8 @@
   "contributors": {
     "developers": [
       {
-        "name": "Johan Bendz",
-        "email": "johan_bendz@hotmail.com"
+        "name": "Wim van der Velden",
+        "email": "nedlevw@gmail.com"
       }
     ]
   }
